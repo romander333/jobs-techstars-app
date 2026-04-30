@@ -7,3 +7,6 @@ spring:
     url: "jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${JOBS_DB_NAME:jobs}"
     username: "${JOBS_USERNAME:postgres}"
     password: "${JOBS_PASSWORD:08122005rR}"
+
+jobs:
+  url: "${BASE_JOBS_TECH_STARS_URL:https://api.getro.com/api/v2/collections/89/search/jobs}"
