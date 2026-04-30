@@ -1,1 +1,9 @@
-spring.application.name=jobs-techstars
+spring:
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.yaml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${JOBS_DB_NAME:jobs}"
+    username: "${JOBS_USERNAME:postgres}"
+    password: "${JOBS_PASSWORD:08122005rR}"

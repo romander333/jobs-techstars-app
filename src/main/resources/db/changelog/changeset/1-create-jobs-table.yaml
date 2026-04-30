@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet: 
+      id: 1-create-jobs-table
+      author: luchko roman
+      changes:
+        - createTable:
+            tableName: jobs
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: locations
+                  type: text[]
+              - column:
+                 name: company_name
+                 type: varchar(255)
+              - column:
+                  name: job_link
+                  type: TEXT
+              - column:
+                  name: industry_tags
+                  type: text[]
+              - column:
+                  name: seniority_status
+                  type: varchar(55)
+                  constraints:
+                    nullable: true
