@@ -17,10 +17,23 @@ public interface JobMapper {
 
     Set<Job> toModels(Set<JobResponseDto> jobResponseDtos);
 
+    @Mapping(target = "organization.industryTags", source = "job.industryTags")
+    @Mapping(target = "organization.companyName", source = "job.companyName")
+    @Mapping(target = "seniority", expression = "java(getSeniorityName(job.getSeniorityStatus()))")
+    JobResponseDto toDto(Job job);
+
     default SeniorityStatus toSeniority(String seniorityString) {
         if (seniorityString == null || seniorityString.isBlank())
             return null;
 
         return SeniorityStatus.fromString(seniorityString);
     }
+
+    default String getSeniorityName(SeniorityStatus seniorityStatus) {
+        if (seniorityStatus == null)
+            return null;
+
+        return seniorityStatus.name();
+    }
+
 }
