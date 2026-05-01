@@ -1,6 +1,7 @@
 package com.techstars.jobstechstars.services.impl;
 
 import com.techstars.jobstechstars.dto.JobPageableDto;
+import com.techstars.jobstechstars.dto.JobRequestDto;
 import com.techstars.jobstechstars.dto.JobResponseDto;
 import com.techstars.jobstechstars.dto.JobWrapperDto;
 import com.techstars.jobstechstars.enums.SeniorityStatus;
@@ -11,6 +12,8 @@ import com.techstars.jobstechstars.repositories.JobRepository;
 import com.techstars.jobstechstars.services.JobService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -31,6 +35,7 @@ public class JobServiceImpl implements JobService {
     private final WebClient webClient;
     private final JobRepository jobRepository;
     private final JobMapper jobMapper;
+
     private static final int HITS_PER_PAGE = 20;
 
     @Async
@@ -50,7 +55,7 @@ public class JobServiceImpl implements JobService {
                 .collect(Collectors.toSet());
 
         if (countElementsBeforeSaving > 0) {
-            jobRepository.deleteAllById(actualJobId);
+            jobRepository.deleteAllJobsByIds(actualJobId);
         }
     }
 
@@ -75,6 +80,15 @@ public class JobServiceImpl implements JobService {
                 .collect(Collectors.toSet())
                 .block();
         return allJobs;
+    }
+
+    @Override
+    public Page<JobResponseDto> getPageJobs(JobRequestDto jobRequestDto, Pageable pageable) {
+        return jobRepository.findByFilters(jobRequestDto.getTitle(),
+                        jobRequestDto.getCompanyName(),
+                        jobRequestDto.getSeniority(),
+                        jobRequestDto.getLocation(), pageable)
+                .map(jobMapper::toDto);
     }
 
     private int getPageQuantity() {
