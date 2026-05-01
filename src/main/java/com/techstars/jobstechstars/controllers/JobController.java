@@ -1,13 +1,13 @@
 package com.techstars.jobstechstars.controllers;
 
+import com.techstars.jobstechstars.dto.JobRequestDto;
 import com.techstars.jobstechstars.dto.JobResponseDto;
 import com.techstars.jobstechstars.services.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/jobs")
@@ -16,7 +16,8 @@ public class JobController {
     private final JobService jobService;
 
     @GetMapping()
-    public Page<JobResponseDto> getAllJobs(Pageable pageable) {
-        return jobService.getPageJobs(pageable);
+    public ResponseEntity<Page<JobResponseDto>> getAllJobs(JobRequestDto jobRequestDto, Pageable pageable) {
+        Page<JobResponseDto> pageJobs = jobService.getPageJobs(jobRequestDto, pageable);
+        return ResponseEntity.ok(pageJobs);
     }
 }

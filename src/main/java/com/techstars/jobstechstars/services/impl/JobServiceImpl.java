@@ -1,6 +1,7 @@
 package com.techstars.jobstechstars.services.impl;
 
 import com.techstars.jobstechstars.dto.JobPageableDto;
+import com.techstars.jobstechstars.dto.JobRequestDto;
 import com.techstars.jobstechstars.dto.JobResponseDto;
 import com.techstars.jobstechstars.dto.JobWrapperDto;
 import com.techstars.jobstechstars.enums.SeniorityStatus;
@@ -25,6 +26,7 @@ import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -81,8 +83,11 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Page<JobResponseDto> getPageJobs(Pageable pageable) {
-        return jobRepository.findAll(pageable)
+    public Page<JobResponseDto> getPageJobs(JobRequestDto jobRequestDto, Pageable pageable) {
+        return jobRepository.findByFilters(jobRequestDto.getTitle(),
+                        jobRequestDto.getCompanyName(),
+                        jobRequestDto.getSeniority(),
+                        jobRequestDto.getLocation(), pageable)
                 .map(jobMapper::toDto);
     }
 
