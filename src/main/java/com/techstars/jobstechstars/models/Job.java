@@ -19,11 +19,12 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "TEXT")
     private String title;
     @JdbcTypeCode(SqlTypes.ARRAY)
     @Column(columnDefinition = "text[]")
     private List<String> locations;
-    @Column(name = "company_name")
+    @Column(name = "company_name", columnDefinition = "TEXT")
     private String companyName;
     @Column(name = "job_link", columnDefinition = "TEXT")
     private String jobLink;

@@ -15,7 +15,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: title
-                  type: varchar(255)
+                  type: TEXT
                   constraints:
                     nullable: false
               - column:
@@ -23,7 +23,7 @@ databaseChangeLog:
                   type: text[]
               - column:
                  name: company_name
-                 type: varchar(255)
+                 type: TEXT
               - column:
                   name: job_link
                   type: TEXT
