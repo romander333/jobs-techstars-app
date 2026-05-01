@@ -21,7 +21,7 @@ public enum SeniorityStatus {
         this.jsonValue = jsonValue;
     }
 
-    private static SeniorityStatus fromString(String jsonValue) {
+    public static SeniorityStatus fromString(String jsonValue) {
         if (jsonValue == null) return null;
 
         for (SeniorityStatus status : SeniorityStatus.values()) {
