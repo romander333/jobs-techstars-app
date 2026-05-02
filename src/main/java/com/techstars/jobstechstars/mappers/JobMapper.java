@@ -13,6 +13,7 @@ public interface JobMapper {
     @Mapping(target = "companyName", source = "organization.companyName")
     @Mapping(target = "industryTags", source = "organization.industryTags")
     @Mapping(target = "seniorityStatus", expression = "java(toSeniority(jobResponseDto.seniority()))")
+    @Mapping(target = "id", ignore = true)
     Job toModel(JobResponseDto jobResponseDto);
 
     Set<Job> toModels(Set<JobResponseDto> jobResponseDtos);
