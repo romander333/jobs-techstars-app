@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: ${JOBS_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${JOBS_PASSWORD:-postgres}
     ports:
-      - "${POSTGRES_DB_PORT:-54320}:5432"
+      - "${POSTGRES_DB_PORT:-5433}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:

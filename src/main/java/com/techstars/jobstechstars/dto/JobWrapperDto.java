@@ -8,7 +8,6 @@ import java.util.Set;
 public record JobWrapperDto(
         @JsonProperty("results") JobResult jobResult) {
 
-
     public record JobResult(
             @JsonProperty("jobs") Set<JobResponseDto> jobResponseDto,
             @JsonProperty("count") Integer count) {
